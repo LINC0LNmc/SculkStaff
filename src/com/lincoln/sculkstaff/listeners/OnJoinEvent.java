@@ -16,7 +16,7 @@ public class OnJoinEvent implements Listener {
     @EventHandler
     public void joinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        player.setResourcePack("https://github.com/LINC0LNmc/SculkStaff/blob/master/resource_pack/SculkStaff.zip?raw=true");
+        player.setResourcePack("https://github.com/LINC0LNmc/SculkStaff/blob/master/resource_pack/SculkStaff20220616202930.zip?raw=true");
     }
 
 }
