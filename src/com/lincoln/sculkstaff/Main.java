@@ -3,7 +3,6 @@ package com.lincoln.sculkstaff;
 import com.lincoln.sculkstaff.items.ItemManager;
 import com.lincoln.sculkstaff.listeners.CraftingEvent;
 import com.lincoln.sculkstaff.listeners.EntityDeathEvent;
-import com.lincoln.sculkstaff.listeners.OnJoinEvent;
 import com.lincoln.sculkstaff.listeners.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,7 +25,6 @@ public class Main extends JavaPlugin {
         instanceOfMain = this;
         logger = getLogger();
         ItemManager.init();
-        getServer().getPluginManager().registerEvents(new OnJoinEvent(this), this);
         getServer().getPluginManager().registerEvents(new EntityDeathEvent(this), this);
         getServer().getPluginManager().registerEvents(new CraftingEvent(this), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractEvent(this), this);
