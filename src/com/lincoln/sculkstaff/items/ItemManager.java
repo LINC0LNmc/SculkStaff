@@ -4,6 +4,8 @@ import com.lincoln.sculkstaff.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -14,6 +16,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.MaterialData;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +35,7 @@ public class ItemManager {
         createSoulFire();
         createSoulHaft();
     }
+
     public static void setItemTag(ItemMeta meta, String key, double value) {
         meta.getPersistentDataContainer().set(new NamespacedKey(Main.instanceOfMain, key), PersistentDataType.DOUBLE, value);
     }
@@ -51,6 +55,7 @@ public class ItemManager {
         item.setItemMeta(meta);
         soulStone = item;
     }
+
     private static void createSoulFire() {
         ItemStack item = new ItemStack(Material.BLAZE_POWDER);
         ItemMeta meta = item.getItemMeta();
@@ -68,13 +73,14 @@ public class ItemManager {
 
         ShapedRecipe sr = new ShapedRecipe(NamespacedKey.minecraft("soulfire"), item);
         sr.shape("BSB",
-                 "SPS",
-                 "BSB");
+                "SPS",
+                "BSB");
         sr.setIngredient('S', Material.SOUL_SAND);
         sr.setIngredient('B', Material.BONE_BLOCK);
         sr.setIngredient('P', Material.BLAZE_POWDER);
         Bukkit.getServer().addRecipe(sr);
     }
+
     private static void createSoulHaft() {
         ItemStack item = new ItemStack(Material.ECHO_SHARD);
         ItemMeta meta = item.getItemMeta();
@@ -99,7 +105,9 @@ public class ItemManager {
         Bukkit.getServer().addRecipe(sr);
     }
 
+
     private static void createSculkStaff() {
+
         ItemStack item = new ItemStack(Material.STICK);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(color("&3Sculk Staff"));
@@ -107,22 +115,26 @@ public class ItemManager {
         lore.add(color("&6Ability: Sonic Boom &e&lRIGHT CLICK"));
         lore.add(color("&7Harness the otherworldly powers of the"));
         lore.add(color("&7Warden and unleash a sonic boom."));
-        lore.add(color("&8Cool Down: &a300s"));
+        lore.add(color("&8Cool Down: &a")+ getCoolDownInt() + "s");
         meta.setLore(lore);
-        setItemTag(meta, "Unique", Math.random());
         meta.setCustomModelData(1);
         item.setItemMeta(meta);
         sculkStaff = item;
 
-//        ShapedRecipe sr = new ShapedRecipe(NamespacedKey.minecraft("sculkstaff"), item);
-//
-//        sr.shape("PSP",
-//                 " H ",
-//                 " H ");
-//        sr.setIngredient('S', (RecipeChoice) new ItemStack(soulStone));
-//        sr.setIngredient('P', Material.STICK);
-//        sr.setIngredient('H', Material.STICK);
-//
-//        Bukkit.getServer().addRecipe(sr);
+    }
+    private static int getCoolDownInt() {
+        int coolDown = 0;
+        FileConfiguration config = YamlConfiguration.loadConfiguration(new File("plugins/SculkStaff", "SculkStaffConfig.yml"));
+        if (config.get("SculkStaffCoolDown") instanceof Integer) {
+            if (config.getInt("SculkStaffCoolDown") >= 0) {
+                coolDown = (config.getInt("SculkStaffCoolDown"));
+            } else {
+                coolDown = 300;
+            }
+        } else {
+            coolDown = 300;
+        }
+        return coolDown;
     }
 }
+

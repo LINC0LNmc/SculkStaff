@@ -25,5 +25,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="net.md.5.SpecialSource" level="project" />
+    <orderEntry type="library" name="net.md.5.bungeecord.api" level="project" />
   </component>
 </module>

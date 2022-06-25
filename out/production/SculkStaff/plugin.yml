@@ -1,5 +1,8 @@
 name: SculkStaff
-version: 1.0
+version: 1.2
 author: Lincoln | LINC0LN
 main: com.lincoln.sculkstaff.Main
 api-version: 1.19
+commands:
+  sculkstaffreload:
+    description: reloads the plugin
